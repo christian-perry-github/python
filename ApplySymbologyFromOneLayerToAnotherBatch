@@ -1,0 +1,22 @@
+# Name: ApplySym.py
+# Purpose: apply the symbology from one layer to another
+
+# Import system modules
+import arcpy
+from arcpy import env
+
+# Set the current workspace
+env.workspace = r"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\test"
+
+
+layers = arcpy.ListFiles("*.lyr")
+print(layers)
+
+# Set layer that output symbology will be based on
+symbologyLayer = "cover_grid_647_4093.asc.lyr"
+print(symbologyLayer)
+
+# Apply the symbology from the symbology layer to the input layer
+#for layer in inputLayers:
+for layer in layers:
+    arcpy.ApplySymbologyFromLayer_management (layer, symbologyLayer)
