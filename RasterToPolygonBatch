@@ -1,0 +1,32 @@
+# Name: RasterToPolygon_Ex_02.py
+# Description: Converts a raster dataset to polygon features.
+# Requirements: None
+
+# Import system modules
+import arcpy
+from arcpy import env 
+import os
+
+# Set environment settings
+env.workspace = r"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\split_binary_raster"
+outpath = r"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\split_binary_raster\shapes"
+
+# Get and print a list of GRIDs from the workspace
+rasters = arcpy.ListRasters("*", "TIF")
+
+for raster in rasters:
+    print(raster)
+    name = arcpy.Describe(raster).baseName #get metadata out of an object; returns a "describe object"
+    print('Working on {}'.format(name))
+    outname = name + ".shp"
+    output = os.path.join(outpath, outname)
+    #print(output)
+
+	# Set local variables
+	#inRaster = "zone"
+	#outPolygons = "c:/output/zones.shp"
+    field = "Value"
+
+	# Execute RasterToPolygon
+    arcpy.RasterToPolygon_conversion(raster, output, "NO_SIMPLIFY", field)
+    print('Finished converting {}\n'.format(name))
